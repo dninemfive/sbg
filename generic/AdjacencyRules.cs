@@ -5,7 +5,7 @@ public static class AdjacencyRules<T>
     where T : INumberBase<T>
 {
     public static AdjacencyRuleDef<T> WithinDistance<U>(DistanceMetric<Point<T>, U> metric, U maximum, U? minimum = null)
-        where U : struct, IFloatingPoint<U>
+        where U : struct, INumberBase<U>, IComparisonOperators<U, U, bool>
         => minimum is null ? new($"distance within {maximum} {"unit".Plural(maximum)}", (a, b) => metric(a, b) <= maximum)
                            : new($"distance between {minimum} and {maximum} units", (a, b) =>
                            {

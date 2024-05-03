@@ -1,13 +1,9 @@
-﻿using d9.utl;
-using System;
-using Point = (int x, int y);
-
-namespace d9.bgp.baghchal;
+﻿namespace d9.bgp.baghchal;
 public class BaghChalAction(string name, Func<BaghChalState, BaghChalState> function)
 {
     public string Name { get; private set; } = name;
     public BaghChalState ApplyTo(BaghChalState state) => function(state);
-    public static BaghChalAction PlaceSheepAt(Point p)
+    public static BaghChalAction PlaceSheepAt(Point<int> p)
     {
         string name = $"Place sheep at {p}";
         return new(name, delegate (BaghChalState state)
@@ -19,14 +15,14 @@ public class BaghChalAction(string name, Func<BaghChalState, BaghChalState> func
             return new(state.Board.Spaces.With(BaghChalPlayer.Sheep, [p]), state.UnplacedSheep - 1, state.CapturedSheep);
         });
     }
-    public static BaghChalAction Move(BaghChalPlayer player, Point source, Point destination)
+    public static BaghChalAction Move(BaghChalPlayer player, Point<int> source, Point<int> destination)
     {
         string name = $"Move {player} from {source} to {destination}";
         List<Func<BaghChalState, Exception?>> validators = [
             (_)     => player is not (BaghChalPlayer.Sheep or BaghChalPlayer.Wolf) ? new($"{player} is not a valid player!")            : null,
             (state) => state.Board[source] != player                               ? new($"{source} is not {player}!")                  : null,
-            (state) => !state.Board[destination].IsEmpty()                          ? new($"{destination} is not empty!")               : null,
-            (_)     => !source.IsBaghChalAdjacentTo(destination)                   ? new($"{source} is not adjacent to {destination}!") : null
+            (state) => !state.Board[destination].IsEmpty()                         ? new($"{destination} is not empty!")                : null,
+            (state)     => !state.Board.AreAdjacent(source, destination)           ? new($"{source} is not adjacent to {destination}!") : null
         ];
         return new(name, delegate (BaghChalState state)
         {
@@ -36,6 +32,13 @@ public class BaghChalAction(string name, Func<BaghChalState, BaghChalState> func
             return new(state.Board.Spaces.With((source, null), (destination, player)), state.UnplacedSheep, state.CapturedSheep);
         });
     }
-    public static BaghChalAction Capture(Point source, Point destination)
-        => throw new NotImplementedException();
+    public static BaghChalAction Capture(Point<int> source, Point<int> sheep, Point<int> destination)
+    {
+        string name = $"Capture {sheep} with {source} -> {destination}";
+        // todo: validators e.g. source, sheep, destination all on board and in line (in order)
+        return new(name, delegate (BaghChalState state)
+        {
+            return state.With(sheepCaptured: 1, differences: [(source, null), (sheep, null), (destination, BaghChalPlayer.Wolf)]);
+        });
+    }
 }

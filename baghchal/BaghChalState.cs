@@ -32,20 +32,24 @@ public readonly struct BaghChalState(BaghChalBoard board, int unplacedSheep, int
     {
         if (player is not (BaghChalPlayer.Sheep or BaghChalPlayer.Wolf))
             throw new ArgumentOutOfRangeException(nameof(player));
-        foreach(Point source in Board.SpacesWithPlayer(player))
-            foreach (Point neighbor in Board.EmptySpaces)
-                if (BaghChalBoard.Adjacency.AreAdjacent(source, neighbor))
+        foreach(Point<int> source in Board.SpacesWithPlayer(player))
+            foreach (Point<int> neighbor in Board.EmptySpaces)
+                if (BaghChalBoard.AdjacencyRule.AreAdjacent(source, neighbor))
                     yield return BaghChalAction.Move(player, source, neighbor);
     }
     public IEnumerable<BaghChalAction> PossibleCaptures()
     {
-        foreach(Point wolf in Board.SpacesWithPlayer(BaghChalPlayer.Wolf))
+        foreach(Point<int> wolf in Board.SpacesWithPlayer(BaghChalPlayer.Wolf))
         {
-            foreach(Point neighbor in BaghChalBoard.Adjacency.NeighborsOf(wolf, Board))
+            foreach(Point<int> neighbor in BaghChalBoard.AdjacencyRule.NeighborsOf(wolf, Board.AllSpaces))
             {
                 if (Board[neighbor] is BaghChalPlayer.Sheep)
                 {
-                    Point offset = neighbor - wolf;
+                    Point<int> offset = neighbor - wolf,
+                               landingPoint = neighbor + offset;
+                    if (!Board.Contains(landingPoint) || Board[landingPoint] is not null)
+                        continue;
+                    yield return BaghChalAction.Capture(wolf, neighbor, landingPoint);
                 }
             }
         }
@@ -53,4 +57,6 @@ public readonly struct BaghChalState(BaghChalBoard board, int unplacedSheep, int
     public bool GameOver
         => CapturedSheep >= 5 || !PossibleActionsFor(BaghChalPlayer.Wolf).Any();
     public static BaghChalState operator +(BaghChalState state, BaghChalAction action) => action.ApplyTo(state);
+    public BaghChalState With(int sheepPlaced = 0, int sheepCaptured = 0, params (Point<int> p, BaghChalPlayer? v)[] differences)
+        => new(Board.Spaces.With(differences), UnplacedSheep - sheepPlaced, CapturedSheep + sheepCaptured);
 }

@@ -1,10 +1,9 @@
-﻿using Point = (int x, int y);
-namespace d9.bgp.baghchal;
-public readonly struct BaghChalBoard
+﻿namespace d9.bgp.baghchal;
+public readonly struct BaghChalBoard : IBoard<Point<int>, BaghChalPlayer?>
 {
-    public static readonly AdjacencyRuleDef Adjacency = AdjacencyRules.NotSelf
-        & ((AdjacencyRules.WithinDistance(DistanceMetrics.Taxicab, 1) & AdjacencyRules.SameColumnOrRow)
-        |  (AdjacencyRules.WithinDistance(DistanceMetrics.Taxicab, 2) & AdjacencyRules.SameDiagonalParity())); 
+    public static readonly AdjacencyRuleDef<int> AdjacencyRule = AdjacencyRules<int>.NotSelf
+        & ((AdjacencyRules<int>.WithinDistance(DistanceMetrics<int, int>.Taxicab, 1) & AdjacencyRules<int>.SameColumnOrRow())
+        |  (AdjacencyRules<int>.WithinDistance(DistanceMetrics<int, int>.Taxicab, 2) & AdjacencyRules<int>.SameDiagonalParity())); 
     public readonly BaghChalPlayer?[,] Spaces;
     public BaghChalBoard(BaghChalPlayer?[,] spaces)
     {
@@ -24,13 +23,15 @@ public readonly struct BaghChalBoard
             return result.With(BaghChalPlayer.Wolf, result.Corners());
         }
     }
-    public BaghChalPlayer? this[Point p]
-        => Spaces[p.x, p.y];
+    public BaghChalPlayer? this[int x, int y]
+        => Spaces[x, y];
+    public BaghChalPlayer? this[Point<int> p]
+        => this[p.X, p.Y];
     private string RowString(int y)
     {
         string result = "";
         for (int x = 0; x < 5; x++)
-            result += this[(x, y)] switch
+            result += this[x, y] switch
             {
                 BaghChalPlayer.Sheep => "O",//"◯",
                 BaghChalPlayer.Wolf => "x",//"◆",
@@ -46,16 +47,34 @@ public readonly struct BaghChalBoard
         result += "└─────┘";
         return result;
     }
-    public IEnumerable<Point> SpacesWithPlayer(BaghChalPlayer? player)
+    public int Width => Spaces.GetLength(0);
+    public int Height => Spaces.GetLength(1);
+    public IEnumerable<Point<int>> AllSpaces
     {
-        foreach (Point p in Spaces.AllCoordinates())
+        get
+        {
+            for (int x = 0; x < Width; x++)
+                for (int y = 0; y < Width; y++)
+                    yield return (x, y);
+        }
+    }
+    public bool Contains(Point<int> p)
+    {
+        (int x, int y) = p;
+        return x is >= 0 and < 5 && y is >= 0 and < 5;
+    }
+    public IEnumerable<Point<int>> SpacesWithPlayer(BaghChalPlayer? player)
+    {
+        foreach (Point<int> p in AllSpaces)
             if (this[p] == player)
                 yield return p;
     }
-    public IEnumerable<Point> EmptySpaces
+    public IEnumerable<Point<int>> EmptySpaces
         => SpacesWithPlayer(null);
-    public IEnumerable<Point> WolfSpaces
+    public IEnumerable<Point<int>> WolfSpaces
         => SpacesWithPlayer(BaghChalPlayer.Wolf);
-    public IEnumerable<Point> SheepSpaces
+    public IEnumerable<Point<int>> SheepSpaces
         => SpacesWithPlayer(BaghChalPlayer.Sheep);
+    public bool AreAdjacent(Point<int> a, Point<int> b)
+        => AdjacencyRule.AreAdjacent(a, b);
 }

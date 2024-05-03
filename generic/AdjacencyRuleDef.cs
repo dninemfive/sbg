@@ -18,9 +18,9 @@ public class AdjacencyRuleDef<T>(string name, AdjacencyRule<T> areAdjacent)
         => new($"not {rule}", (a, b) => !rule.AreAdjacent(a, b));
     public static AdjacencyRuleDef<T> operator ^(AdjacencyRuleDef<T> ruleA, AdjacencyRuleDef<T> ruleB)
         => new($"(either {ruleA} or {ruleB})", (a, b) => ruleA.AreAdjacent(a, b) != ruleB.AreAdjacent(a, b));
-    public IEnumerable<Point<T>> NeighborsOf(Point<T> p, BaghChalBoard b)
+    public IEnumerable<Point<T>> NeighborsOf(Point<T> p, IEnumerable<Point<T>> searchSpace)
     {
-        foreach (Point<T> other in b.Spaces.AllCoordinates())
+        foreach (Point<T> other in searchSpace)
             if (AreAdjacent(p, other))
                 yield return p;
     }
