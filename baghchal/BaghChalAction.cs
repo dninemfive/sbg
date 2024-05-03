@@ -22,7 +22,7 @@ public class BaghChalAction(string name, Func<BaghChalState, BaghChalState> func
             (_)     => player is not (BaghChalPlayer.Sheep or BaghChalPlayer.Wolf) ? new($"{player} is not a valid player!")            : null,
             (state) => state.Board[source] != player                               ? new($"{source} is not {player}!")                  : null,
             (state) => !state.Board[destination].IsEmpty()                         ? new($"{destination} is not empty!")                : null,
-            (state)     => !state.Board.AreAdjacent(source, destination)           ? new($"{source} is not adjacent to {destination}!") : null
+            (_)     => !BaghChal.AreAdjacent(source, destination)                  ? new($"{source} is not adjacent to {destination}!") : null
         ];
         return new(name, delegate (BaghChalState state)
         {
