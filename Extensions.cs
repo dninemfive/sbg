@@ -39,4 +39,10 @@ public static class Extensions
             return true;
         return a.IsBaghChalDiagonalCenter() || b.IsBaghChalDiagonalCenter();
     }
+    public static IEnumerable<Point> AllCoordinates<T>(this T[,] array)
+    {
+        for (int x = 0; x < array.GetLength(0); x++)
+            for (int y = 0; y < array.GetLength(1); y++)
+                yield return (x, y);
+    }
 }

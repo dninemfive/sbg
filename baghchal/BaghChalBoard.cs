@@ -13,7 +13,7 @@ public readonly struct BaghChalBoard
         => new(spaces);
     public static implicit operator BaghChalPlayer[,]?(BaghChalBoard board)
         => (BaghChalPlayer[,]?)board.Spaces.Clone();
-    public static BaghChalBoard InitialBoard
+    public static BaghChalBoard Initial
     {
         get
         {
@@ -23,4 +23,16 @@ public readonly struct BaghChalBoard
     }
     public BaghChalPlayer? this[Point p]
         => Spaces[p.x, p.y];
+    public IEnumerable<Point> EmptySpaces
+    {
+        get
+        {
+            foreach (Point p in Spaces.AllCoordinates())
+                if (this[p] is null)
+                    yield return p;
+        }
+    }
+    // makes .Where things more readable in other places
+    public bool IsSheep(Point p)
+        => this[p] is BaghChalPlayer.Sheep;
 }
