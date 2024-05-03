@@ -8,4 +8,10 @@
     <RootNamespace>d9.bgp</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="utl">
+      <HintPath>..\..\misc\utl\bin\Release\net7.0\utl.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

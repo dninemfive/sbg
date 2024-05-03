@@ -45,4 +45,19 @@ public static class Extensions
             for (int y = 0; y < array.GetLength(1); y++)
                 yield return (x, y);
     }
+    public static IEnumerable<Point> BaghChalAdjacentPoints(this Point a)
+    {
+        static bool inbounds(Point p)
+            => p.x is >= 0 and < 5 && p.y is >= 0 and < 5;
+        (int ax, int ay) = a;
+        for(int xo = -1; xo <= 1; xo++)
+            for(int yo = -1; yo <= 1; yo++)
+            {
+                if (xo == 0 && yo == 0)
+                    continue;
+                Point p = (ax + xo, ay + yo);
+                if (inbounds(p))
+                    yield return p;
+            }
+    }
 }

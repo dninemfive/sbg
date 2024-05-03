@@ -20,7 +20,8 @@ public readonly struct BaghChalState(BaghChalBoard board, int unplacedSheep, int
             else
             {
                 IEnumerable<Point> sources = Board.Spaces.AllCoordinates().Where(Board.IsSheep);
-                IEnumerable<(Point source, Point destination)> pairs = []; // todo: SelectMany(p => (p, p.AdjacentSpaces))
+                IEnumerable<(Point source, Point destination)> pairs = sources.Zip(sources.SelectMany(x => x.BaghChalAdjacentPoints()))
+                                                                              .Where(Board.DestinationIsEmpty);
                 return pairs.Select(x => BaghChalAction.Move(BaghChalPlayer.Sheep, x.source, x.destination));
             }
         } 
@@ -32,4 +33,5 @@ public readonly struct BaghChalState(BaghChalBoard board, int unplacedSheep, int
     }
     public bool GameOver
         => CapturedSheep >= 5 || !PossibleActionsFor(BaghChalPlayer.Wolf).Any();
+    public static BaghChalState operator +(BaghChalState state, BaghChalAction action) => action.ApplyTo(state);
 }

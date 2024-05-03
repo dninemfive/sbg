@@ -35,4 +35,6 @@ public readonly struct BaghChalBoard
     // makes .Where things more readable in other places
     public bool IsSheep(Point p)
         => this[p] is BaghChalPlayer.Sheep;
+    public bool DestinationIsEmpty((Point _, Point dest) tuple)
+        => this[tuple.dest] is null;
 }

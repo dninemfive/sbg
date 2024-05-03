@@ -17,5 +17,13 @@ public class BaghChalGame(IBaghChalAgent sheep, IBaghChalAgent wolf)
     public void DoTurn()
     {
         BaghChalAction action = CurrentAgent.SelectAction(PossibleActions);
+        Console.WriteLine($"{CurrentPlayer}: {action.Name}");
+        CurrentState += action;
+        Turn++;
+    }
+    public void Play()
+    {
+        while (!CurrentState.GameOver)
+            DoTurn();
     }
 }
