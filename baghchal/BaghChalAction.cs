@@ -1,4 +1,5 @@
-﻿using Point = (int x, int y);
+﻿using System;
+using Point = (int x, int y);
 
 namespace d9.bgp.baghchal;
 public class BaghChalAction(string name, Func<BaghChalState, BaghChalState> function)
@@ -20,13 +21,17 @@ public class BaghChalAction(string name, Func<BaghChalState, BaghChalState> func
     public static BaghChalAction Move(BaghChalPlayer player, Point source, Point destination)
     {
         string name = $"Move {player} from {source} to {destination}";
+        List<Func<BaghChalState, Exception?>> validators = [
+            (_) => player is not (BaghChalPlayer.Sheep or BaghChalPlayer.Wolf) ? new($"{player} is not a valid player!") : null,
+            (state) => state.Board[source] != player ? new($"{source} is not {player}!") : null,
+            (state) => state.Board[destination].IsEmpty() ? new($"{destination} is not empty!") : null,
+            (_) => !source.IsBaghChalAdjacentTo(destination) ? new($"{source} is not adjacent to {destination}!") : null
+            ];
         return new(name, delegate (BaghChalState state)
         {
-            if (player is not BaghChalPlayer.Sheep or BaghChalPlayer.Wolf
-             || state.Board[source] != player
-             || !state.Board[destination].IsEmpty()
-             || !source.IsBaghChalAdjacentTo(destination))
-                throw new Exception($"`{name}` is not a valid action for the current state!");
+            IEnumerable<Exception?> exceptions = validators.Select(x => x(state)).Where(x => x is not null);
+            if (exceptions.Any())
+                throw exceptions.First()!;
             return new(state.Board.Spaces.With((source, null), (destination, player)), state.UnplacedSheep, state.CapturedSheep);
         });
     }
