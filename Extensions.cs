@@ -48,8 +48,7 @@ public static class Extensions
     }
     public static IEnumerable<Point> BaghChalAdjacentPoints(this Point a)
     {
-        Console.WriteLine($"BaghChalAdjacentPoints({a})");
-        static bool inbounds(Point p)
+        static bool inBounds(Point p)
             => p.x is >= 0 and < 5 && p.y is >= 0 and < 5;
         (int ax, int ay) = a;
         for(int xo = -1; xo <= 1; xo++)
@@ -58,11 +57,8 @@ public static class Extensions
                 if (xo == 0 && yo == 0)
                     continue;
                 Point p = (ax + xo, ay + yo);
-                if (inbounds(p) && a.IsBaghChalAdjacentTo(p))
-                {
-                    Console.WriteLine($"\t{p}");
+                if (inBounds(p) && a.IsBaghChalAdjacentTo(p))
                     yield return p;
-                }
             }
     }
     public static string IndentLines(this string s, int n = 1, string tab = "  ")

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using d9.utl;
+using System;
 using Point = (int x, int y);
 
 namespace d9.bgp.baghchal;
@@ -22,11 +23,11 @@ public class BaghChalAction(string name, Func<BaghChalState, BaghChalState> func
     {
         string name = $"Move {player} from {source} to {destination}";
         List<Func<BaghChalState, Exception?>> validators = [
-            (_) => player is not (BaghChalPlayer.Sheep or BaghChalPlayer.Wolf) ? new($"{player} is not a valid player!") : null,
-            (state) => state.Board[source] != player ? new($"{source} is not {player}!") : null,
-            (state) => state.Board[destination].IsEmpty() ? new($"{destination} is not empty!") : null,
-            (_) => !source.IsBaghChalAdjacentTo(destination) ? new($"{source} is not adjacent to {destination}!") : null
-            ];
+            (_)     => player is not (BaghChalPlayer.Sheep or BaghChalPlayer.Wolf) ? new($"{player} is not a valid player!")            : null,
+            (state) => state.Board[source] != player                               ? new($"{source} is not {player}!")                  : null,
+            (state) => !state.Board[destination].IsEmpty()                          ? new($"{destination} is not empty!")               : null,
+            (_)     => !source.IsBaghChalAdjacentTo(destination)                   ? new($"{source} is not adjacent to {destination}!") : null
+        ];
         return new(name, delegate (BaghChalState state)
         {
             IEnumerable<Exception?> exceptions = validators.Select(x => x(state)).Where(x => x is not null);

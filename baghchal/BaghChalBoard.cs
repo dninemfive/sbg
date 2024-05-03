@@ -38,8 +38,8 @@ public readonly struct BaghChalBoard
         for (int x = 0; x < 5; x++)
             result += this[(x, y)] switch
             {
-                BaghChalPlayer.Sheep => "◯",
-                BaghChalPlayer.Wolf => "◆",
+                BaghChalPlayer.Sheep => "O",//"◯",
+                BaghChalPlayer.Wolf => "x",//"◆",
                 _ => " "
             };
         return result;

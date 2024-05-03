@@ -35,7 +35,8 @@ public readonly struct BaghChalState(BaghChalBoard board, int unplacedSheep, int
         BaghChalBoard _board = Board; // have to copy to a local variable because you can't use struct fields in anonymous methods for some reason
         foreach(Point source in Board.Spaces.AllCoordinates().Where(x => _board[x] == player))
             foreach (Point neighbor in source.BaghChalAdjacentPoints())
-                yield return BaghChalAction.Move(player, source, neighbor);
+                if (Board[neighbor].IsEmpty())
+                    yield return BaghChalAction.Move(player, source, neighbor);
     }
     public bool GameOver
         => CapturedSheep >= 5 || !PossibleActionsFor(BaghChalPlayer.Wolf).Any();
