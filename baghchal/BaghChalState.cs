@@ -33,14 +33,14 @@ public readonly struct BaghChalState(BaghChalBoard board, int unplacedSheep, int
             throw new ArgumentOutOfRangeException(nameof(player));
         foreach(Point<int> source in Board.SpacesWithPlayer(player))
             foreach (Point<int> neighbor in Board.EmptySpaces)
-                if (BaghChalBoard.AdjacencyRule.AreAdjacent(source, neighbor))
+                if (BaghChal.Rules.AreAdjacent(source, neighbor))
                     yield return BaghChalAction.Move(player, source, neighbor);
     }
     public IEnumerable<BaghChalAction> PossibleCaptures()
     {
         foreach(Point<int> wolf in Board.SpacesWithPlayer(BaghChalPlayer.Wolf))
         {
-            foreach(Point<int> neighbor in BaghChalBoard.AdjacencyRule.NeighborsOf(wolf, Board.AllSpaces))
+            foreach(Point<int> neighbor in Board.NeighborsOf(wolf))
             {
                 if (Board[neighbor] is BaghChalPlayer.Sheep)
                 {
