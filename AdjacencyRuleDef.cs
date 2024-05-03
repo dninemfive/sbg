@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using d9.bgp.baghchal;
+using System.Numerics;
 using Point = (int x, int y);
 namespace d9.bgp;
 public delegate bool AdjacencyRule(Point a, Point b);
@@ -16,6 +17,12 @@ public class AdjacencyRuleDef(string name, AdjacencyRule areAdjacent)
         => new($"not {rule}", (a, b) => !rule.AreAdjacent(a, b));
     public static AdjacencyRuleDef operator ^(AdjacencyRuleDef ruleA, AdjacencyRuleDef ruleB)
         => new($"(either {ruleA} or {ruleB})", (a, b) => ruleA.AreAdjacent(a, b) != ruleB.AreAdjacent(a, b));
+    public IEnumerable<Point> NeighborsOf(Point p, BaghChalBoard b)
+    {
+        foreach (Point other in b.Spaces.AllCoordinates())
+            if (AreAdjacent(p, other))
+                yield return p;
+    }
 }
 public delegate T DistanceMetric<T>(Point a, Point b) where T : IFloatingPoint<T>;
 public static class AdjacencyRules

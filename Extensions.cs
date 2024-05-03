@@ -38,21 +38,6 @@ public static class Extensions
             for (int y = 0; y < array.GetLength(1); y++)
                 yield return (x, y);
     }
-    public static IEnumerable<Point> BaghChalAdjacentPoints(this Point a)
-    {
-        static bool inBounds(Point p)
-            => p.x is >= 0 and < 5 && p.y is >= 0 and < 5;
-        (int ax, int ay) = a;
-        for(int xo = -1; xo <= 1; xo++)
-            for(int yo = -1; yo <= 1; yo++)
-            {
-                if (xo == 0 && yo == 0)
-                    continue;
-                Point p = (ax + xo, ay + yo);
-                if (inBounds(p) && a.IsBaghChalAdjacentTo(p))
-                    yield return p;
-            }
-    }
     public static string IndentLines(this string s, int n = 1, string tab = "  ")
         => $"{tab.Repeated(n)}{s.Replace("\n", $"\n{tab.Repeated(n)}")}";
     public static bool IsEven(this int i)

@@ -26,15 +26,6 @@ public readonly struct BaghChalBoard
     }
     public BaghChalPlayer? this[Point p]
         => Spaces[p.x, p.y];
-    public IEnumerable<Point> EmptySpaces
-    {
-        get
-        {
-            foreach (Point p in Spaces.AllCoordinates())
-                if (this[p] is null)
-                    yield return p;
-        }
-    }
     private string RowString(int y)
     {
         string result = "";
@@ -55,4 +46,16 @@ public readonly struct BaghChalBoard
         result += "└─────┘";
         return result;
     }
+    public IEnumerable<Point> SpacesWithPlayer(BaghChalPlayer? player)
+    {
+        foreach (Point p in Spaces.AllCoordinates())
+            if (this[p] == player)
+                yield return p;
+    }
+    public IEnumerable<Point> EmptySpaces
+        => SpacesWithPlayer(null);
+    public IEnumerable<Point> WolfSpaces
+        => SpacesWithPlayer(BaghChalPlayer.Wolf);
+    public IEnumerable<Point> SheepSpaces
+        => SpacesWithPlayer(BaghChalPlayer.Sheep);
 }
