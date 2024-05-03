@@ -33,10 +33,9 @@ public readonly struct BaghChalState(BaghChalBoard board, int unplacedSheep, int
         if (player is not (BaghChalPlayer.Sheep or BaghChalPlayer.Wolf))
             throw new ArgumentOutOfRangeException(nameof(player));
         BaghChalBoard _board = Board; // have to copy to a local variable because you can't use struct fields in anonymous methods for some reason
-        IEnumerable<Point> sources = Board.Spaces.AllCoordinates().Where(x => _board[x] == player);
-        IEnumerable<(Point source, Point destination)> pairs = sources.Zip(sources.SelectMany(x => x.BaghChalAdjacentPoints()))
-                                                                                  .Where(x => _board[x.Second].IsEmpty());
-        return pairs.Select(x => BaghChalAction.Move(player, x.source, x.destination));
+        foreach(Point source in Board.Spaces.AllCoordinates().Where(x => _board[x] == player))
+            foreach (Point neighbor in source.BaghChalAdjacentPoints())
+                yield return BaghChalAction.Move(player, source, neighbor);
     }
     public bool GameOver
         => CapturedSheep >= 5 || !PossibleActionsFor(BaghChalPlayer.Wolf).Any();
