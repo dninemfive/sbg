@@ -73,5 +73,5 @@ public readonly struct BaghChalBoard : IBoard<Point<int>, BaghChalPlayer?>
     public IEnumerable<Point<int>> SheepSpaces
         => SpacesWithPlayer(BaghChalPlayer.Sheep);
     public bool AreAdjacent(Point<int> a, Point<int> b)
-        => AdjacencyRule.AreAdjacent(a, b);
+        => BaghChal.AdjacencyRule.AreAdjacent(a, b);
 }
