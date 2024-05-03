@@ -24,8 +24,7 @@ public readonly struct BaghChalState(BaghChalBoard board, int unplacedSheep, int
         } 
         else
         {
-            // todo: add captures
-            return PossibleMovesFor(BaghChalPlayer.Wolf);
+            return PossibleMovesFor(BaghChalPlayer.Wolf).Union(PossibleCaptures());
         }
     }
     public IEnumerable<BaghChalAction> PossibleMovesFor(BaghChalPlayer player)
