@@ -1,4 +1,5 @@
 ﻿using d9.utl;
+using System.Numerics;
 using Point = (int x, int y);
 namespace d9.bgp;
 public static class Extensions
@@ -56,4 +57,9 @@ public static class Extensions
         => $"{tab.Repeated(n)}{s.Replace("\n", $"\n{tab.Repeated(n)}")}";
     public static bool IsEven(this int i)
         => i % 2 == 0;
+    public static int Parity(this Point p)
+        => p.x - p.y;
+    public static string Plural<T>(this string s, T n, string ifPlural = "s")
+        where T : INumberBase<T>
+        => $"{s}{(n != T.One ? ifPlural : "")}";
 }

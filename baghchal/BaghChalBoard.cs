@@ -2,6 +2,9 @@
 namespace d9.bgp.baghchal;
 public readonly struct BaghChalBoard
 {
+    public static readonly AdjacencyRuleDef Adjacency = AdjacencyRules.NotSelf
+        & ((AdjacencyRules.WithinDistance(DistanceMetrics.Taxicab, 1) & AdjacencyRules.SameColumnOrRow)
+        |  (AdjacencyRules.WithinDistance(DistanceMetrics.Taxicab, 2) & AdjacencyRules.SameDiagonalParity())); 
     public readonly BaghChalPlayer?[,] Spaces;
     public BaghChalBoard(BaghChalPlayer?[,] spaces)
     {
