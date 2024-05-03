@@ -16,8 +16,9 @@ public class BaghChalGame(IBaghChalAgent sheep, IBaghChalAgent wolf)
         => CurrentState.PossibleActionsFor(CurrentPlayer);
     public void DoTurn()
     {
+        Console.WriteLine($"Turn {Turn}\n{CurrentState.Board.ToString().IndentLines()}");
         BaghChalAction action = CurrentAgent.SelectAction(PossibleActions);
-        Console.WriteLine($"{CurrentPlayer}: {action.Name}");
+        Console.WriteLine($"{CurrentPlayer}: {action.Name}\n=========");
         CurrentState += action;
         Turn++;
     }

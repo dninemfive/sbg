@@ -32,9 +32,24 @@ public readonly struct BaghChalBoard
                     yield return p;
         }
     }
-    // makes .Where things more readable in other places
-    public bool IsSheep(Point p)
-        => this[p] is BaghChalPlayer.Sheep;
-    public bool DestinationIsEmpty((Point _, Point dest) tuple)
-        => this[tuple.dest] is null;
+    private string RowString(int y)
+    {
+        string result = "";
+        for (int x = 0; x < 5; x++)
+            result += this[(x, y)] switch
+            {
+                BaghChalPlayer.Sheep => "◯",
+                BaghChalPlayer.Wolf => "◆",
+                _ => " "
+            };
+        return result;
+    }
+    public override string ToString()
+    {
+        string result = "┌─────┐\n";
+        for (int y = 0; y < 5; y++)
+            result += $"│{RowString(y)}│\n";
+        result += "└─────┘";
+        return result;
+    }
 }

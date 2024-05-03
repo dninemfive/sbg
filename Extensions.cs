@@ -1,4 +1,5 @@
-﻿using Point = (int x, int y);
+﻿using d9.utl;
+using Point = (int x, int y);
 namespace d9.bgp;
 public static class Extensions
 {
@@ -13,7 +14,7 @@ public static class Extensions
         => original.With(positions.Select(x => (x, value)).ToArray());
     public static IEnumerable<Point> Corners<T>(this T[,] array)
     {
-        int x = array.GetLength(0), y = array.GetLength(1);
+        int x = array.GetLength(0) - 1, y = array.GetLength(1) - 1;
         return [
             (0, 0),
             (x, 0),
@@ -47,6 +48,7 @@ public static class Extensions
     }
     public static IEnumerable<Point> BaghChalAdjacentPoints(this Point a)
     {
+        Console.WriteLine($"BaghChalAdjacentPoints({a})");
         static bool inbounds(Point p)
             => p.x is >= 0 and < 5 && p.y is >= 0 and < 5;
         (int ax, int ay) = a;
@@ -56,8 +58,13 @@ public static class Extensions
                 if (xo == 0 && yo == 0)
                     continue;
                 Point p = (ax + xo, ay + yo);
-                if (inbounds(p))
+                if (inbounds(p) && a.IsBaghChalAdjacentTo(p))
+                {
+                    Console.WriteLine($"\t{p}");
                     yield return p;
+                }
             }
     }
+    public static string IndentLines(this string s, int n = 1, string tab = "  ")
+        => $"{tab.Repeated(n)}{s.Replace("\n", $"\n{tab.Repeated(n)}")}";
 }
