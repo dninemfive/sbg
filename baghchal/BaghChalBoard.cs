@@ -2,25 +2,25 @@
 namespace d9.bgp.baghchal;
 public readonly struct BaghChalBoard
 {
-    public readonly SpaceState[,] Spaces;
-    public BaghChalBoard(SpaceState[,] spaces)
+    public readonly BaghChalPlayer?[,] Spaces;
+    public BaghChalBoard(BaghChalPlayer?[,] spaces)
     {
         if (spaces.GetLength(0) != 5 || spaces.GetLength(1) != 5)
             throw new ArgumentException("A bagh chal board must be 5x5!", nameof(spaces));
         Spaces = spaces;
     }
-    public static implicit operator BaghChalBoard(SpaceState[,] spaces)
+    public static implicit operator BaghChalBoard(BaghChalPlayer?[,] spaces)
         => new(spaces);
-    public static implicit operator SpaceState[,](BaghChalBoard board)
-        => (SpaceState[,])board.Spaces.Clone();
+    public static implicit operator BaghChalPlayer[,]?(BaghChalBoard board)
+        => (BaghChalPlayer[,]?)board.Spaces.Clone();
     public static BaghChalBoard InitialBoard
     {
         get
         {
-            SpaceState[,] result = new SpaceState[5, 5];
-            return result.With(SpaceState.Wolf, result.Corners());
+            BaghChalPlayer?[,] result = new BaghChalPlayer?[5, 5];
+            return result.With(BaghChalPlayer.Wolf, result.Corners());
         }
     }
-    public SpaceState this[Point p]
+    public BaghChalPlayer? this[Point p]
         => Spaces[p.x, p.y];
 }

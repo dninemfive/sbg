@@ -10,19 +10,19 @@ public class BaghChalAction(string name, Func<BaghChalState, BaghChalState?> fun
         {
             if (state.UnplacedSheep < 1
              || state.CapturedSheep >= 5
-             || state.Board[p] != SpaceState.Empty)
+             || !state.Board[p].IsEmpty())
                 return null;
-            return new(state.Board.Spaces.With(SpaceState.Sheep, [p]), state.UnplacedSheep - 1, state.CapturedSheep);
+            return new(state.Board.Spaces.With(BaghChalPlayer.Sheep, [p]), state.UnplacedSheep - 1, state.CapturedSheep);
         });
-    public static BaghChalAction Move(SpaceState player, Point source, Point destination)
+    public static BaghChalAction Move(BaghChalPlayer player, Point source, Point destination)
         => new($"Move {player} from {source} to {destination}", delegate (BaghChalState state)
         {
-            if (player is not SpaceState.Sheep or SpaceState.Wolf
-             || state.Board[source] != player
-             || state.Board[destination] != SpaceState.Empty
-             || !source.IsBaghChalAdjacentTo(destination))
+        if (player is not BaghChalPlayer.Sheep or BaghChalPlayer.Wolf
+         || state.Board[source] != player
+         || !state.Board[destination].IsEmpty()
+         || !source.IsBaghChalAdjacentTo(destination))
                 return null;
-            return new(state.Board.Spaces.With((source, SpaceState.Empty), (destination, player)), state.UnplacedSheep, state.CapturedSheep);
+            return new(state.Board.Spaces.With((source, null), (destination, player)), state.UnplacedSheep, state.CapturedSheep);
         });
     public static BaghChalAction Capture(Point source, Point destination)
         => throw new NotImplementedException();
