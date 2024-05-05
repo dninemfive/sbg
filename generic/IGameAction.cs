@@ -1,4 +1,6 @@
-﻿namespace d9.sbg;
+﻿using d9.utl;
+
+namespace d9.sbg;
 public delegate T TransitionFunction<T>(T state);
 public delegate Exception? ActionValidator<T>(string actionName, T state);
 public interface IGameAction<T>
@@ -8,7 +10,7 @@ public interface IGameAction<T>
     public virtual bool ValidFor(T state, out IEnumerable<Exception> exceptions)
     {
         exceptions = Validators.Select(x => x(Name, state)).NonNullElements();
-        return exceptions.Any();
+        return !exceptions.Any();
     }
     protected T ApplyToInternal(T State);
     public virtual T ApplyTo(T state)

@@ -13,7 +13,7 @@ public readonly struct BaghChalState(BaghChalBoard board, int unplacedSheep, int
         {
             if (UnplacedSheep > 0)
             {
-                return Board.EmptySpaces.Select(BaghChalAction.PlaceSheepAt);
+                return Board.EmptySpaces.Select(BaghChalActions.PlaceSheepAt);
             }
             else
             {
@@ -32,7 +32,7 @@ public readonly struct BaghChalState(BaghChalBoard board, int unplacedSheep, int
         foreach(Point<int> source in Board.SpacesWithPlayer(player))
             foreach (Point<int> neighbor in Board.EmptySpaces)
                 if (BaghChal.Rules.AreAdjacent(source, neighbor))
-                    yield return BaghChalAction.Move(player, source, neighbor);
+                    yield return BaghChalActions.Move(player, source, neighbor);
     }
     public IEnumerable<BaghChalAction> PossibleCaptures()
     {
@@ -46,7 +46,7 @@ public readonly struct BaghChalState(BaghChalBoard board, int unplacedSheep, int
                                landingPoint = neighbor + offset;
                     if (!Board.Contains(landingPoint) || Board[landingPoint] is not null)
                         continue;
-                    yield return BaghChalAction.Capture(wolf, neighbor, landingPoint);
+                    yield return BaghChalActions.Capture(wolf, neighbor, landingPoint);
                 }
             }
         }

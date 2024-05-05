@@ -5,7 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>d9.abg</RootNamespace>
+    <RootNamespace>d9.sbg</RootNamespace>
     <AssemblyName>sbg</AssemblyName>
   </PropertyGroup>
 
