@@ -4,20 +4,16 @@
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
-    <RootNamespace>d9.sbg.examples</RootNamespace>
-    <AssemblyName>sbg.examples</AssemblyName>
+    <RootNamespace>d9.sbg.example</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="sbg">
-      <HintPath>..\..\engine\bin\Debug\net8.0\sbg.dll</HintPath>
+      <HintPath>..\..\engine\bin\Release\net8.0\sbg.dll</HintPath>
     </Reference>
     <Reference Include="utl">
       <HintPath>..\..\engine\bin\Release\net8.0\utl.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="view\" />
   </ItemGroup>
 </Project>

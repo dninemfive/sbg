@@ -20,7 +20,7 @@ window/stretch/mode="canvas_items"
 
 [dotnet]
 
-project/assembly_name="sbg.example.Godot"
+project/assembly_name="sbg.example"
 
 [rendering]
 
