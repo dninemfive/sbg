@@ -1,8 +1,5 @@
-﻿using d9.utl;
-using System.Numerics;
-namespace d9.sbg;
-public static class Extensions
-{
+namespace d9.sbg.example;
+public static class Extensions {
     public static T[,] With<T>(this T[,] original, params (Point<int> p, T value)[] differences)
     {
         T[,] result = (T[,])original.Clone();
@@ -21,16 +18,5 @@ public static class Extensions
             (x, y),
             (0, y)
         ];
-    }
-    public static string IndentLines(this string s, int n = 1, string tab = "  ")
-        => $"{tab.Repeated(n)}{s.Replace("\n", $"\n{tab.Repeated(n)}")}";
-    public static string Plural<T>(this string s, T n, string ifPlural = "s")
-        where T : INumberBase<T>
-        => $"{s}{(n != T.One ? ifPlural : "")}";
-    public static IEnumerable<T> NonNullElements<T>(this IEnumerable<T?> maybeNullElements)
-    {
-        foreach (T? element in maybeNullElements)
-            if (element is T t)
-                yield return t;
     }
 }

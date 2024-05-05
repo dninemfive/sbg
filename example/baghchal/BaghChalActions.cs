@@ -1,4 +1,4 @@
-﻿namespace d9.sbg.baghchal;
+﻿namespace d9.sbg.example.baghchal;
 public static class BaghChalActions
 {
     public static BaghChalAction PlaceSheepAt(Point<int> p)

@@ -1,6 +1,4 @@
-﻿using d9.utl;
-
-namespace d9.sbg;
+﻿namespace d9.sbg;
 public delegate T TransitionFunction<T>(T state);
 public delegate Exception? ActionValidator<T>(string actionName, T state);
 public interface IGameAction<T>

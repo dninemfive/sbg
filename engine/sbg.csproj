@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <Reference Include="utl">
-      <HintPath>..\..\misc\utl\bin\Release\net7.0\utl.dll</HintPath>
+      <HintPath>..\..\..\misc\utl\bin\Release\net7.0\utl.dll</HintPath>
     </Reference>
   </ItemGroup>
 
