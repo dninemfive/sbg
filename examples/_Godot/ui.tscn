@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgy8dd8kqccp6"]
+
+[ext_resource type="Script" path="res://ui.cs" id="1_ra4ii"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_ra4ii")
+
+[node name="AdvanceGame" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="UnplacedSheepLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="CapturedSheepLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="TurnLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="pressed" from="AdvanceGame" to="." method="OnAdvanceGameButtonPressed"]

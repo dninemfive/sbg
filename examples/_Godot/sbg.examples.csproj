@@ -17,4 +17,7 @@
       <HintPath>..\..\engine\bin\Release\net8.0\utl.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="view\" />
+  </ItemGroup>
 </Project>

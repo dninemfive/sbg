@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="sbg.example.Godot"
+config/name="sbg.examples"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 

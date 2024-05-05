@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://d2j8n511axh8t"]
 
-[ext_resource type="Script" path="res://Root.cs" id="1_gkwwb"]
+[ext_resource type="PackedScene" uid="uid://bgy8dd8kqccp6" path="res://ui.tscn" id="1_wj4o7"]
 
-[node name="Root" type="Node"]
-script = ExtResource("1_gkwwb")
+[node name="Node" type="Node"]
+
+[node name="UI" parent="." instance=ExtResource("1_wj4o7")]

@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sbg.examples.Godot", "sbg.examples.Godot.csproj", "{2113CA36-BBBC-4B37-B251-B911860196FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sbg.examples", "sbg.examples.csproj", "{2113CA36-BBBC-4B37-B251-B911860196FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
