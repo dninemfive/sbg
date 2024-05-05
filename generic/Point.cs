@@ -23,6 +23,10 @@ public readonly struct Point<T>(T x, T y)
         => a.X == b.X && a.Y == b.Y;
     public static bool operator !=(Point<T> a, Point<T> b)
         => !(a == b);
+    public static Point<T> operator *(Point<T> a, Point<T> b)
+        => (a.X * b.X, a.Y * b.Y);
+    public static Point<T> operator /(Point<T> a, Point<T> b)
+        => (a.X / b.X, a.Y / b.Y);
     public override bool Equals([NotNullWhen(true)] object? obj)
         => obj is Point<T> other && this == other;
     public override int GetHashCode()
