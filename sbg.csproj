@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>d9.abg</RootNamespace>
-    <AssemblyName>abg</AssemblyName>
+    <AssemblyName>sbg</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

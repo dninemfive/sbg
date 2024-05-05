@@ -1,8 +1,12 @@
 ﻿namespace d9.sbg.baghchal;
-public class BaghChalAction(string name, Func<BaghChalState, BaghChalState> function)
+public class BaghChalAction(string name, TransitionFunction<BaghChalState> transitionFunction, params ActionValidator<BaghChalState>[] validators)
+    : IGameAction<BaghChalState>
 {
-    public string Name { get; private set; } = name;
-    public BaghChalState ApplyTo(BaghChalState state) => function(state);
+    public string Name { get; } = name;
+    public IReadOnlyCollection<ActionValidator<BaghChalState>> Validators { get; } = validators.ToList();
+    BaghChalState IGameAction<BaghChalState>.ApplyToInternal(BaghChalState state) => transitionFunction(state);
+    public BaghChalAction(string name, TransitionFunction<BaghChalState> tf, IEnumerable<ActionValidator<BaghChalState>> validators)
+        : this(name, tf, validators.ToArray()) { }
     public static BaghChalAction PlaceSheepAt(Point<int> p)
     {
         string name = $"Place sheep at {p}";
@@ -18,20 +22,13 @@ public class BaghChalAction(string name, Func<BaghChalState, BaghChalState> func
     public static BaghChalAction Move(BaghChalPlayer player, Point<int> source, Point<int> destination)
     {
         string name = $"Move {player} from {source} to {destination}";
-        List<Func<BaghChalState, Exception?>> validators = [
+        List<ActionValidator<BaghChalState>> validators = [
             (_)     => player is not (BaghChalPlayer.Sheep or BaghChalPlayer.Wolf) ? new($"{player} is not a valid player!")            : null,
             (state) => state.Board[source] != player                               ? new($"{source} is not {player}!")                  : null,
             (state) => !state.Board[destination].IsEmpty()                         ? new($"{destination} is not empty!")                : null,
             (_)     => !BaghChal.Rules.AreAdjacent(source, destination)            ? new($"{source} is not adjacent to {destination}!") : null
         ];
-
-        return new(name, delegate (BaghChalState state)
-        {
-            IEnumerable<Exception?> exceptions = validators.Select(x => x(state)).Where(x => x is not null);
-            if (exceptions.Any())
-                throw exceptions.First()!;
-            return new(state.Board.Spaces.With((source, null), (destination, player)), state.UnplacedSheep, state.CapturedSheep);
-        });
+        return new(name, (state) => state.With(differences: [(source, null), (destination, player)]), validators);
     }
     public static BaghChalAction Capture(Point<int> source, Point<int> sheep, Point<int> destination)
     {

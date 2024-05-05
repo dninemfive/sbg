@@ -53,7 +53,7 @@ public readonly struct BaghChalState(BaghChalBoard board, int unplacedSheep, int
     }
     public bool GameOver
         => CapturedSheep >= 5 || !PossibleActionsFor(BaghChalPlayer.Wolf).Any();
-    public static BaghChalState operator +(BaghChalState state, BaghChalAction action) => action.ApplyTo(state);
+    public static BaghChalState operator +(BaghChalState state, BaghChalAction action) => ((IGameAction<BaghChalState>)action).ApplyTo(state);
     public BaghChalState With(int sheepPlaced = 0, int sheepCaptured = 0, params (Point<int> p, BaghChalPlayer? v)[] differences)
         => new(Board.Spaces.With(differences), UnplacedSheep - sheepPlaced, CapturedSheep + sheepCaptured);
 }

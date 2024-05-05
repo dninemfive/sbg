@@ -1,22 +1,20 @@
-﻿using d9.sbg;
-
-namespace d9.abg.generic;
-public delegate T StateTransitionFunction<T>(T state);
-public delegate Exception? GameActionValidator<T>(T state);
+﻿namespace d9.sbg;
+public delegate T TransitionFunction<T>(T state);
+public delegate Exception? ActionValidator<T>(T state);
 public interface IGameAction<T>
 {
     public string Name { get; }
-    protected StateTransitionFunction<T> TransitionFunction { get; }
-    public IReadOnlyCollection<GameActionValidator<T>> Validators { get; }
+    public IReadOnlyCollection<ActionValidator<T>> Validators { get; }
     public virtual bool ValidFor(T state, out IEnumerable<Exception> exceptions)
     {
         exceptions = Validators.Select(x => x(state)).NonNullElements();
         return exceptions.Any();
     }
+    protected T ApplyToInternal(T State);
     public virtual T ApplyTo(T state)
     {
         if (!ValidFor(state, out IEnumerable<Exception> exceptions))
             throw new AggregateException(exceptions);
-        return TransitionFunction(state);
+        return ApplyToInternal(state);
     }
 }
