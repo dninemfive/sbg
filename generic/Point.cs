@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 
-namespace d9.bgp;
+namespace d9.sbg;
 public readonly struct Point<T>(T x, T y)
     where T : INumberBase<T>
 {

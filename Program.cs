@@ -1,4 +1,4 @@
-﻿using d9.bgp.baghchal;
+﻿using d9.sbg.baghchal;
 using System.Text;
 
 internal class Program

@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace d9.bgp;
+namespace d9.sbg;
 public static class PointAdjacencyRules<T>
     where T : INumberBase<T>
 {

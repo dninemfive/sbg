@@ -1,4 +1,4 @@
-﻿namespace d9.bgp.generic;
+﻿namespace d9.sbg;
 public abstract class BoardGameRules<TCoordinate, TValue>
 {
     public abstract AdjacencyRuleDef<TCoordinate> Adjacency { get; }

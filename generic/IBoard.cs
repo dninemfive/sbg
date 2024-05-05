@@ -1,4 +1,4 @@
-﻿namespace d9.bgp;
+﻿namespace d9.sbg;
 public interface IBoard<TCoordinate, TValue>
 {
     public IEnumerable<TCoordinate> AllSpaces { get; }

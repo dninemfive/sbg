@@ -1,4 +1,4 @@
-﻿namespace d9.bgp.baghchal;
+﻿namespace d9.sbg.baghchal;
 public class BaghChalGame(IBaghChalAgent sheep, IBaghChalAgent wolf)
 {
     public IBaghChalAgent Sheep { get; private set; } = sheep;

@@ -1,4 +1,4 @@
-﻿namespace d9.bgp.baghchal;
+﻿namespace d9.sbg.baghchal;
 public class BaghChalAction(string name, Func<BaghChalState, BaghChalState> function)
 {
     public string Name { get; private set; } = name;

@@ -1,6 +1,4 @@
-﻿using d9.bgp.baghchal;
-using System.Numerics;
-namespace d9.bgp;
+﻿namespace d9.sbg;
 public delegate bool AdjacencyRule<T>(T a, T b);
 public class AdjacencyRuleDef<T>(string name, AdjacencyRule<T> areAdjacent)
 {

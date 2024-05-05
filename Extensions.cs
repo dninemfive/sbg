@@ -1,6 +1,6 @@
 ﻿using d9.utl;
 using System.Numerics;
-namespace d9.bgp;
+namespace d9.sbg;
 public static class Extensions
 {
     public static T[,] With<T>(this T[,] original, params (Point<int> p, T value)[] differences)

@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>d9.abg</RootNamespace>
+    <AssemblyName>abg</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="utl">
+      <HintPath>..\..\misc\utl\bin\Release\net7.0\utl.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

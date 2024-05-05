@@ -1,6 +1,4 @@
-﻿using d9.bgp.generic;
-
-namespace d9.bgp.baghchal;
+﻿namespace d9.sbg.baghchal;
 public class BaghChal : BoardGameRules<Point<int>, BaghChalPlayer?>
 {
     public static readonly BaghChal Rules = new();

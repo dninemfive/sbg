@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace d9.bgp;
+namespace d9.sbg;
 public delegate U DistanceMetric<T, U>(T a, T b) 
     where U : INumberBase<U>;
 public static class DistanceMetrics<T, U>
