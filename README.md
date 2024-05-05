@@ -1,4 +1,4 @@
-# sbg - <ins>S</ins>uper A<ins>b</ins>stract <ins>B</ins>oard <ins>G</ins>ame Engine
+# sbg - <ins>S</ins>uper A<ins>b</ins>stract (<ins>b</ins>oard) <ins>G</ins>ame en<ins>g</ins>ine
 Implementation of a highly abstract framework for defining board games purely in code-behind. Will link to Godot for visualization later, for now the output just goes to the console.
 
 ## Credits
