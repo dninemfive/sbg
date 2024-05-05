@@ -1,4 +1,4 @@
-﻿namespace d9.sbg.example.baghchal;
+﻿namespace d9.sbg.examples.baghchal;
 public class BaghChalAction(string name, TransitionFunction<BaghChalState> transitionFunction, params ActionValidator<BaghChalState>[] validators)
     : IGameAction<BaghChalState>
 {

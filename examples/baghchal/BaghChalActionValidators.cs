@@ -1,6 +1,6 @@
 ﻿using d9.utl;
 
-namespace d9.sbg.example.baghchal;
+namespace d9.sbg.examples.baghchal;
 public static class BaghChalActionValidators
 {
     public static ActionValidator<BaghChalState> PlayerMustBe(BaghChalPlayer actual, params BaghChalPlayer[] expected)

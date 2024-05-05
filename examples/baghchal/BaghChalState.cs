@@ -1,4 +1,4 @@
-﻿namespace d9.sbg.example.baghchal;
+﻿namespace d9.sbg.examples.baghchal;
 public readonly struct BaghChalState(BaghChalBoard board, int unplacedSheep, int capturedSheep)
 {
     public readonly int UnplacedSheep = unplacedSheep,

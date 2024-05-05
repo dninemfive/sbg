@@ -1,4 +1,4 @@
-﻿namespace d9.sbg.example.baghchal;
+﻿namespace d9.sbg.examples.baghchal;
 public readonly struct BaghChalBoard : IBoard<Point<int>, BaghChalPlayer?>
 {
     public readonly BaghChalPlayer?[,] Spaces;

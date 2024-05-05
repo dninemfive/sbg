@@ -1,4 +1,4 @@
-﻿namespace d9.sbg.example.baghchal;
+﻿namespace d9.sbg.examples.baghchal;
 public class BaghChal : BoardGameRules<Point<int>, BaghChalPlayer?>
 {
     public static readonly BaghChal Rules = new();

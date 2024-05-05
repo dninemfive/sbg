@@ -1,4 +1,4 @@
-namespace d9.sbg.example;
+namespace d9.sbg.examples;
 public static class Extensions {
     public static T[,] With<T>(this T[,] original, params (Point<int> p, T value)[] differences)
     {
