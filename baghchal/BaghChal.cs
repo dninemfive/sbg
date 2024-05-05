@@ -1,9 +1,4 @@
 ﻿using d9.bgp.generic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace d9.bgp.baghchal;
 public class BaghChal : BoardGameRules<Point<int>, BaghChalPlayer?>

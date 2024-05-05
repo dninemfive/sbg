@@ -1,6 +1,4 @@
-﻿using Point = (int x, int y);
-
-namespace d9.bgp.baghchal;
+﻿namespace d9.bgp.baghchal;
 public readonly struct BaghChalState(BaghChalBoard board, int unplacedSheep, int capturedSheep)
 {
     public readonly int UnplacedSheep = unplacedSheep,

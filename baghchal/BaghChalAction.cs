@@ -24,6 +24,7 @@ public class BaghChalAction(string name, Func<BaghChalState, BaghChalState> func
             (state) => !state.Board[destination].IsEmpty()                         ? new($"{destination} is not empty!")                : null,
             (_)     => !BaghChal.Rules.AreAdjacent(source, destination)            ? new($"{source} is not adjacent to {destination}!") : null
         ];
+
         return new(name, delegate (BaghChalState state)
         {
             IEnumerable<Exception?> exceptions = validators.Select(x => x(state)).Where(x => x is not null);

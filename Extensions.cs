@@ -24,8 +24,6 @@ public static class Extensions
     }
     public static string IndentLines(this string s, int n = 1, string tab = "  ")
         => $"{tab.Repeated(n)}{s.Replace("\n", $"\n{tab.Repeated(n)}")}";
-    public static bool IsEven(this int i)
-        => i % 2 == 0;
     public static string Plural<T>(this string s, T n, string ifPlural = "s")
         where T : INumberBase<T>
         => $"{s}{(n != T.One ? ifPlural : "")}";
